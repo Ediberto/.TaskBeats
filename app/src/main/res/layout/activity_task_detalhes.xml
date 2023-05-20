@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".TaskDetalhesActivity">
+    <include layout="@layout/toolbar"/>
+
+    <TextView
+        android:id="@+id/tv_task_titulo_detalhe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Titlo"
+        style="@style/Titlo3"
+        android:layout_marginStart="16dp"/>
+    <EditText
+        android:id="@+id/edt_task_titulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:hint="Adicione um nome para sua tarefa"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Descrição"
+        android:layout_marginEnd="8dp"
+        style="@style/Titlo3"/>
+    <EditText
+        android:id="@+id/edt_task_descricao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:hint="Adicione uma descrição para a nova tarefa"/>
+    <Button
+        android:id="@+id/btn_concluir"
+        style="@style/ButtonPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="Concluir"/>
+</LinearLayout>
