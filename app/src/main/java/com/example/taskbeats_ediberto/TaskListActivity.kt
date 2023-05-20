@@ -35,25 +35,24 @@ class TaskListActivity : AppCompatActivity() {
         TaskListAdapter(::onListItemClicked)
     }
     //CRIAR A BASE DE DADOS
+    private lateinit var  dataBase :AppDatabase
+    private fun onCreate() {
+       // super.onCreate()
+        dataBase= Room.databaseBuilder(
+            applicationContext,
+            AppDatabase::class.java, "Taskbeats-database"
+        ).build()
+    }
+    /*
     private val dataBase by lazy {
         Room.databaseBuilder(
             applicationContext,
             AppDatabase::class.java, "taskbeats-database"
         )
-    }.build()
+    }.build() */
     //INSERIR A VARIAVEL dao
     private val dao = dataBase.taskDao()
-    /*
-    //CRIAR A BASE DE DADOS
-    val dataBase by lazy {
-        Room.databaseBuilder(
-            applicationContext,
-            AppDatabase::class.java, "taskbeats-database"
-        ).build()
-    }
-    //INSERIR A VARIAVEL dao
-    private val dao by lazy { dataBase.taskDao() }
-     */
+
     //adapter
     private val startForResult = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
