@@ -12,10 +12,10 @@
         android:theme="@style/Theme.TaskBeatsEdiberto"
         tools:targetApi="31">
         <activity
-            android:name=".TaskDetalhesActivity"
+            android:name=".presentation.TaskDetalhesActivity"
             android:exported="false" />
         <activity
-            android:name=".TaskListActivity"
+            android:name=".presentation.TaskListActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

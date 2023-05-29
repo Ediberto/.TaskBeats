@@ -1,5 +1,4 @@
-package com.example.taskbeats_ediberto
-import android.app.Activity
+package com.example.taskbeats_ediberto.presentation
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -14,16 +13,17 @@ import androidx.activity.result.contract.ActivityResultContracts
 //import com.comunidadedevspace.taskbeats.data.Task
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
-import androidx.room.RoomDatabase
-import com.google.android.filament.View
+import android.view.View
+import com.example.taskbeats_ediberto.R
+//import com.google.android.filament.View
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import java.io.Serializable
-import android.widget.Toast
-import kotlin.coroutines.coroutineContext
+import com.example.taskbeats_ediberto.data.AppDatabase
+import com.example.taskbeats_ediberto.data.Task
 
 class TaskListActivity : AppCompatActivity() {
     //RECUPERAR A IMAGEM "img_empty_task"
@@ -35,40 +35,28 @@ class TaskListActivity : AppCompatActivity() {
         TaskListAdapter(::onListItemClicked)
     }
     //CRIAR A BASE DE DADOS
-    private lateinit var  dataBase :AppDatabase
-    private fun onCreate() {
-       // super.onCreate()
-        dataBase= Room.databaseBuilder(
-            applicationContext,
-            AppDatabase::class.java, "Taskbeats-database"
-        ).build()
-    }
-    /*
-    private val dataBase by lazy {
+   private val dataBase by lazy {
         Room.databaseBuilder(
             applicationContext,
             AppDatabase::class.java, "taskbeats-database"
-        )
-    }.build() */
+        ).build()
+    }
     //INSERIR A VARIAVEL dao
     private val dao = dataBase.taskDao()
-
     //adapter
     private val startForResult = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result: ActivityResult ->
-        //if (result.resultCode == RESULT_OK) {
         if (result.resultCode == RESULT_OK) {
             //PEGANDO RESULTADO
             val data = result.data
-            val taskAction = data?.getSerializableExtra(TASK_ACTION_RESULT) as TaskAction?
-            val task: Task = taskAction!!.task
+            val taskAction = data?.getSerializableExtra(TASK_ACTION_RESULT) as TaskAction
+            val task: Task = taskAction.task
             when (taskAction.actionType) {
                 ActionType.DELETE.name -> deleteById(task.id)
                 ActionType.CREATE.name -> insertIntoDataBase(task)
                 ActionType.UPDATE.name -> updateIntoDataBase(task)
             }
-
         }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,18 +66,17 @@ class TaskListActivity : AppCompatActivity() {
         //COLOCAR O TOOLBAR
         setSupportActionBar(findViewById(R.id.toolbar))
         listFromDataBase()
+        // INICIALIZAR A IMAGEM ctnContent
+        ctnContent = findViewById(R.id.ctn_content)
+        val rvTasks : RecyclerView = findViewById(R.id.rv_task_list)
+        rvTasks.adapter = adapter
         CoroutineScope(IO).launch {
             val myDataBaseList: List<Task> = dao.getAll()
             adapter.submitList(myDataBaseList)
         }
-        // INICIALIZAR A IMAGEM ctnContent
-        ctnContent = findViewById(R.id.ctn_content)
-        //OBS. DEU UM ERRO NA LINHA ACIMA, É PORQUE NO adapter SÓ EXISTE UM ARGUMENTO (taskLista,
         //ESTÁ SENDO PASSADO DOIS ARGUMENTOS, PARA RESOLVER ESSE PROBLEMA VAMOS ALTERAR OS
         //ARGUMENTOS NA CLASSE "TaskListAdapter".
         //RECUPERANDO A RECYCLERVIEW
-        val rvTasks : RecyclerView = findViewById(R.id.rv_task_list)
-        rvTasks.adapter = adapter
         //COLOCAR AÇÃO NO FLOAT ACTION BUTTON
         val fab = findViewById<FloatingActionButton>(R.id.fab_add)
         fab.setOnClickListener {

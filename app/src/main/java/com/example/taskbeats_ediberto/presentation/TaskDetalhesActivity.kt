@@ -1,7 +1,6 @@
-package com.example.taskbeats_ediberto
+package com.example.taskbeats_ediberto.presentation
 
 import android.app.Activity
-import android.app.Notification.Action
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -13,27 +12,28 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import com.example.taskbeats_ediberto.R.id.toolbar
+import com.example.taskbeats_ediberto.R
+import com.example.taskbeats_ediberto.data.Task
 import com.google.android.material.snackbar.Snackbar
 //import kotlinx.coroutines.NonCancellable.message
 
 class TaskDetalhesActivity : AppCompatActivity() {
-    private lateinit var tvTitulo : TextView
+    //private lateinit var tvTitulo : TextView
+
     //COLOCAR A TAREFA DENTRO DO ESCOPO DESTA ACTIVITY
     private var task : Task? = null
     private lateinit var btnConcluir: Button
     //CRIAR UM OBJETO companion COM UMA CHAVE PARA PASSAR
     //UM VALOR DE UMA TELA PARA OUTRA
     companion object {
-        private val TASK_DETALHE_EXTRA = "task.extra.detalhe"
+        private const val TASK_DETALHE_EXTRA = "task.extra.detalhe"
         //A FUNÇÃO ABAIXO GARANTE QUE QUEM FOR ABRIR A "TaskDetalhesActivity.KT",
         //PASSE UMA TAREFA A SER MOSTRADA
         fun start(context: Context, task: Task?): Intent {
-            val intent = Intent(context, TaskDetalhesActivity :: class.java)
+            val intent = Intent(context, TaskDetalhesActivity::class.java).apply {
                 //QUANDO A PROXIMA TELA FOR CHAMADA, ENVIAR O ITEM DA TAREFA JUNTO
-                .apply {
-                    putExtra(TASK_DETALHE_EXTRA, task)
-                }
+                putExtra(TASK_DETALHE_EXTRA, task)
+            }
             return intent
         }
     }
@@ -106,8 +106,8 @@ class TaskDetalhesActivity : AppCompatActivity() {
                 if (task != null) {
                    returnAction(task!!, ActionType.DELETE)
                 } else {
-                   showMessage(tvTitulo, "Item não existe")
-                   // showMessage(btnConcluir, "Item não existe")
+                   //showMessage(tvTitulo, "Item não existe")
+                    showMessage(btnConcluir, "Item não existe")
                 }
                 true
             } else -> super.onOptionsItemSelected(item)
@@ -117,8 +117,8 @@ class TaskDetalhesActivity : AppCompatActivity() {
     private fun returnAction(task: Task, actionType: ActionType) {
         val intent = Intent()
             .apply {
-                //val taskAction = TaskAction(task, actionType)
-                val taskAction = TaskAction(task!!, actionType.name)
+                val taskAction = TaskAction(task, actionType.name)
+                //val taskAction = TaskAction(task!!, actionType.name)
                 putExtra("TASK_ACTION_RESULT", taskAction)
             }
         setResult(Activity.RESULT_OK, intent)

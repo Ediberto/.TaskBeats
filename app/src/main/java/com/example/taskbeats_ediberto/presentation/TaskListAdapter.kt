@@ -1,4 +1,4 @@
-package com.example.taskbeats_ediberto
+package com.example.taskbeats_ediberto.presentation
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,9 +7,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.taskbeats_ediberto.R
+import com.example.taskbeats_ediberto.data.Task
 //import com.comunidadedevspace.taskbeats.R
 //import com.comunidadedevspace.taskbeats.data.Task
-import org.w3c.dom.Text
+
 //IMPLEMENTAR O ADAPTER NA CLASSE &quot;TaskListAdapter&quot;
 // -&gt; Unit, no Kotlin significa que não terá retorno
 class TaskListAdapter(
@@ -32,7 +34,6 @@ class TaskListAdapter(
         //RETORNAR UM VIEWHOLDER PARA CRIAR UM NOVO VIEWHOLDER
         return TaskListViewHolder(view)
     }
-
     //ATRELAR O ITEM
     //DEVEMOS RECUPERAR O ÍTEM DA POSIÇÃO DA LISTA, ALTERANDO
     //O MEMBRO.
@@ -42,12 +43,10 @@ class TaskListAdapter(
         // O click
         holder.bind(task, openTaskDetalheView) //CRIAR A FUNÇÃO bind() abaixo
     }
-
     companion object : DiffUtil.ItemCallback<Task>() {
         override fun areItemsTheSame(oldItem: Task, newItem: Task): Boolean {
             return oldItem == newItem
         }
-
         override fun areContentsTheSame(oldItem: Task, newItem: Task): Boolean {
             return oldItem.titlo == newItem.titlo &&
                     oldItem.descricao == newItem.descricao
