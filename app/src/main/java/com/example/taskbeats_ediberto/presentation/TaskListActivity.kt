@@ -14,7 +14,12 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import android.view.View
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.room.RoomDatabase
 import com.example.taskbeats_ediberto.R
+import com.example.taskbeats_ediberto.TaskBeatsApplication
 //import com.google.android.filament.View
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -24,6 +29,7 @@ import kotlinx.coroutines.launch
 import java.io.Serializable
 import com.example.taskbeats_ediberto.data.AppDatabase
 import com.example.taskbeats_ediberto.data.Task
+import kotlinx.coroutines.Dispatchers
 
 class TaskListActivity : AppCompatActivity() {
     //RECUPERAR A IMAGEM "img_empty_task"
@@ -34,15 +40,10 @@ class TaskListActivity : AppCompatActivity() {
     private val adapter: TaskListAdapter by lazy {
         TaskListAdapter(::onListItemClicked)
     }
-    //CRIAR A BASE DE DADOS
-   private val dataBase by lazy {
-        Room.databaseBuilder(
-            applicationContext,
-            AppDatabase::class.java, "taskbeats-database"
-        ).build()
+    //CRIA ViewModel VAZIO
+    private val viewModel: TaskListViewModel by lazy {
+        TaskListViewModel.create(application)
     }
-    //INSERIR A VARIAVEL dao
-    private val dao = dataBase.taskDao()
     //adapter
     private val startForResult = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -51,12 +52,8 @@ class TaskListActivity : AppCompatActivity() {
             //PEGANDO RESULTADO
             val data = result.data
             val taskAction = data?.getSerializableExtra(TASK_ACTION_RESULT) as TaskAction
-            val task: Task = taskAction.task
-            when (taskAction.actionType) {
-                ActionType.DELETE.name -> deleteById(task.id)
-                ActionType.CREATE.name -> insertIntoDataBase(task)
-                ActionType.UPDATE.name -> updateIntoDataBase(task)
-            }
+          //  val task: Task = taskAction.task
+            viewModel.execute(taskAction)
         }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,15 +62,13 @@ class TaskListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_tasks_list)
         //COLOCAR O TOOLBAR
         setSupportActionBar(findViewById(R.id.toolbar))
-        listFromDataBase()
+       // listFromDataBase()
         // INICIALIZAR A IMAGEM ctnContent
         ctnContent = findViewById(R.id.ctn_content)
+        //RECYCLERVIEW
         val rvTasks : RecyclerView = findViewById(R.id.rv_task_list)
         rvTasks.adapter = adapter
-        CoroutineScope(IO).launch {
-            val myDataBaseList: List<Task> = dao.getAll()
-            adapter.submitList(myDataBaseList)
-        }
+
         //ESTÁ SENDO PASSADO DOIS ARGUMENTOS, PARA RESOLVER ESSE PROBLEMA VAMOS ALTERAR OS
         //ARGUMENTOS NA CLASSE "TaskListAdapter".
         //RECUPERANDO A RECYCLERVIEW
@@ -83,39 +78,29 @@ class TaskListActivity : AppCompatActivity() {
             openTaskListDetalhes(null)
         }
     }
-    private fun insertIntoDataBase(task: Task) {
-        CoroutineScope(IO).launch {
-            dao.insert(task)
-            //CHAMAR A FUNÇÃO PARA LISTAR AS TAREFAS ATUALIZADAS NO ADAPTER
-            listFromDataBase()
-        }
-    }
-    private fun updateIntoDataBase(task: Task) {
-        CoroutineScope(IO).launch {
-            dao.update(task)
-            //CHAMAR A FUNÇÃO PARA LISTAR AS TAREFAS ATUALIZADAS NO ADAPTER
-            listFromDataBase()
-        }
-    }
-    //DELETA TODAS TAREFAS
-    private fun deleteAll() {
-        CoroutineScope(IO).launch {
-            dao.deleteAll()
-            //CHAMAR A FUNÇÃO PARA LISTAR AS TAREFAS ATUALIZADAS NO ADAPTER
-            listFromDataBase()
-        }
-    }
-    //DELETA A TAREFA POR ID
-    private fun deleteById(id: Int) {
-        CoroutineScope(IO).launch {
-            dao.deleteById(id)
-            //CHAMAR A FUNÇÃO PARA LISTAR AS TAREFAS ATUALIZADAS NO ADAPTER
-            listFromDataBase()
-        }
-    }
-    //ATUALIZAR A LISTA, ATRAVÉS DO SUBMITLIST
-    private fun listFromDataBase(){
+    override fun onStart() {
+        super.onStart()
+        //MOSTRA UMA INSTANCIA DA DATABASE
+        //Log.d("Ediberto testando", dataBase.toString())
         listFromDataBase()
+     }
+    private fun deleteAll() {
+        val taskAction = TaskAction(null, ActionType.DELETE_ALL.name)
+        viewModel.execute(taskAction)
+    }
+     //ATUALIZAR A LISTA, ATRAVÉS DO SUBMITLIST
+    private fun listFromDataBase(){
+        //Observer
+        val listObserver = Observer<List<Task>> {listTasks ->
+            if(listTasks.isEmpty()) {
+                ctnContent.visibility = View.VISIBLE
+            } else {
+                ctnContent.visibility = View.GONE
+            }
+            adapter.submitList(listTasks)
+        }
+        //Live Data
+        viewModel.taskListLiveData.observe(this@TaskListActivity, listObserver)
     }
     fun showMessage(view: View, message: String) {
         Snackbar.make(view, message, Snackbar.LENGTH_LONG)
@@ -150,12 +135,13 @@ enum class ActionType {
     //CRIAR TRÊS OBJETOS DO TIPO ActionType
     //ESSES OBJETOS SÃO AS AÇÕES QUE TEMOS NA CLASSE ActionType
     DELETE,
+    DELETE_ALL,
     UPDATE,
     CREATE
 }
 //A ACTIVITY POSSA SEGURAR A TAREFA EM SI E TAMBÉM O TIPO. VEJA ABAIXO:
 data class TaskAction (
-    val task : Task,
+    val task : Task?,
     val actionType: String
 ) : Serializable
 //A MainActivity, VAI SER

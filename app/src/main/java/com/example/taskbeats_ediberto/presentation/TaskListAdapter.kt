@@ -15,13 +15,8 @@ import com.example.taskbeats_ediberto.data.Task
 //IMPLEMENTAR O ADAPTER NA CLASSE &quot;TaskListAdapter&quot;
 // -&gt; Unit, no Kotlin significa que não terá retorno
 class TaskListAdapter(
-    private val openTaskDetalheView: (task: Task) -> Unit ) :
-    //RecyclerView.Adapter<TaskListViewHolder>() {
-    ListAdapter<Task, TaskListViewHolder>(TaskListAdapter) {
-
-    //TEMOS QUE FAZER A IMPLEMENTAÇÃO, OU SEJA, ESTA LISTA NÃO EXISTE MAIS,
-// MAS VAI EXISTIR EM ALGUM MOMENTO
-    private var listTask: List<Task> = emptyList()
+    private val openTaskDetalheView: (task: Task) -> Unit
+) : ListAdapter<Task, TaskListViewHolder>(TaskListAdapter) {
 
     //OBS. DA MESMA MANEIRA QUE PASSAMOS A listTask COM UMA TAREFA para a função
     // DA MESMA MANEIRA POSSAMOS PASSAR &quot;openTaskDetalheView&quot;

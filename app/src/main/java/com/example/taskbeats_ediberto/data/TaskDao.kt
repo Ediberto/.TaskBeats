@@ -1,5 +1,6 @@
 package com.example.taskbeats_ediberto.data
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 @Dao
 //internal interface TaskDao1 {
@@ -9,7 +10,7 @@ interface TaskDao {
     //FAZ A MESMA FUNÇÃO DO SQL
     @Query("Select * from task")
     //ESSA FUNÇÃO VAI TRAZER UMA LISTA DE TAREFAS (task)
-    fun getAll(): List<Task>
+    fun getAll(): LiveData<List<Task>>
 
     //FUNÇÃO UPDATE
     @Update(onConflict = OnConflictStrategy.REPLACE)
