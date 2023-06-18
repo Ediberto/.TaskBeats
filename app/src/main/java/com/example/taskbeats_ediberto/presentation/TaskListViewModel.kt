@@ -7,11 +7,14 @@ import androidx.lifecycle.viewModelScope
 import com.example.taskbeats_ediberto.TaskBeatsApplication
 import com.example.taskbeats_ediberto.data.Task
 import com.example.taskbeats_ediberto.data.TaskDao
-import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class TaskListViewModel(private val taskDao: TaskDao) : ViewModel() {
+class TaskListViewModel(
+    private val taskDao: TaskDao,
+    private val dispatcher: CoroutineDispatcher=Dispatchers.IO
+) : ViewModel() {
     //AQUI TEREMOS O LIVEDATE NO VIEWMODEL
     val taskListLiveData: LiveData<List<Task>> = taskDao.getAll()
     fun execute(taskAction: TaskAction) {
@@ -24,23 +27,23 @@ class TaskListViewModel(private val taskDao: TaskDao) : ViewModel() {
     }
     //DELETA A TAREFA POR ID
     private fun deleteById(id: Int) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(dispatcher) {
             taskDao.deleteById(id)
         }
     }
     private fun insertIntoDataBase(task: Task) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(dispatcher) {
             taskDao.insert(task)
         }
     }
     private fun updateIntoDataBase(task: Task) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(dispatcher) {
             taskDao.update(task)
         }
     }
     //DELETA TODAS TAREFAS
     private fun deleteAll() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(dispatcher) {
             taskDao.deleteAll()
         }
     }
