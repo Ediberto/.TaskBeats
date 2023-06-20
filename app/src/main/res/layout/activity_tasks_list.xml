@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-    <include layout="layout/toolbar"/>
+    android:orientation="vertical"
+    tools:context=".presentation.TaskListActivity">
+    <include layout="@layout/toolbar"/>
 
     <!-- INSERINDO O COMPONENTE "Float Action Button"-->
     <com.google.android.material.floatingactionbutton.FloatingActionButton

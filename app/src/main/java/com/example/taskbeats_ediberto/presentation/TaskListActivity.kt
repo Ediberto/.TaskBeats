@@ -8,9 +8,6 @@ import android.view.MenuItem
 import android.widget.LinearLayout
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-//import com.comunidadedevspace.taskbeats.R
-//import com.comunidadedevspace.taskbeats.data.AppDatabase
-//import com.comunidadedevspace.taskbeats.data.Task
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import android.view.View
@@ -60,6 +57,7 @@ class TaskListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         //INFLAR O LAYOUT
         setContentView(R.layout.activity_tasks_list)
+       // setContentView(R.layout.toolbar)
         //COLOCAR O TOOLBAR
         setSupportActionBar(findViewById(R.id.toolbar))
        // listFromDataBase()
