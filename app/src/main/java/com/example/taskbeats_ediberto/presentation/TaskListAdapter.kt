@@ -1,5 +1,4 @@
 package com.example.taskbeats_ediberto.presentation
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,15 +8,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.taskbeats_ediberto.R
 import com.example.taskbeats_ediberto.data.Task
-//import com.comunidadedevspace.taskbeats.R
-//import com.comunidadedevspace.taskbeats.data.Task
-
 //IMPLEMENTAR O ADAPTER NA CLASSE &quot;TaskListAdapter&quot;
 // -&gt; Unit, no Kotlin significa que não terá retorno
 class TaskListAdapter(
     private val openTaskDetalheView: (task: Task) -> Unit
 ) : ListAdapter<Task, TaskListViewHolder>(TaskListAdapter) {
-
     //OBS. DA MESMA MANEIRA QUE PASSAMOS A listTask COM UMA TAREFA para a função
     // DA MESMA MANEIRA POSSAMOS PASSAR &quot;openTaskDetalheView&quot;
     // INFLA O LAYOUT

@@ -1,6 +1,4 @@
 package com.example.taskbeats_ediberto.presentation
-
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -12,17 +10,17 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.activity.viewModels
 import com.example.taskbeats_ediberto.R
 import com.example.taskbeats_ediberto.data.Task
 import com.google.android.material.snackbar.Snackbar
-//import kotlinx.coroutines.NonCancellable.message
-
 class TaskDetalhesActivity : AppCompatActivity() {
-    //private lateinit var tvTitulo : TextView
-
     //COLOCAR A TAREFA DENTRO DO ESCOPO DESTA ACTIVITY
     private var task : Task? = null
     private lateinit var btnConcluir: Button
+    //CRIAÇAO DE UM NOVO ViewModel
+    private val viewModel: TaskDetalhesViewModel by viewModels{
+        TaskDetalhesViewModel.getVMFactory(application)}
     //CRIAR UM OBJETO companion COM UMA CHAVE PARA PASSAR
     //UM VALOR DE UMA TELA PARA OUTRA
     companion object {
@@ -88,7 +86,7 @@ class TaskDetalhesActivity : AppCompatActivity() {
     ) {
         //val newTask = Task(id, titulo, descricao)
         val task = Task(id, titulo, descricao)
-        returnAction(task, actionType)
+        performAction(task, actionType)
     }
     //CICLO DE VIDA DA ACTIVITY
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -104,7 +102,7 @@ class TaskDetalhesActivity : AppCompatActivity() {
             R.id.delete_task -> {
                 //SETANDO O RESULTADO NA TELA ANTERIOR
                 if (task != null) {
-                   returnAction(task!!, ActionType.DELETE)
+                   performAction(task!!, ActionType.DELETE)
                 } else {
                    //showMessage(tvTitulo, "Item não existe")
                     showMessage(btnConcluir, "Item não existe")
@@ -114,14 +112,9 @@ class TaskDetalhesActivity : AppCompatActivity() {
         }
     }
     //fun returnAction(task: Task, actionType: TaskListActivity.ActionType) {
-    private fun returnAction(task: Task, actionType: ActionType) {
-        val intent = Intent()
-            .apply {
-                val taskAction = TaskAction(task, actionType.name)
-                //val taskAction = TaskAction(task!!, actionType.name)
-                putExtra("TASK_ACTION_RESULT", taskAction)
-            }
-        setResult(Activity.RESULT_OK, intent)
+    private fun performAction(task: Task, actionType: ActionType) {
+        val taskAction = TaskAction(task, actionType.name)
+        viewModel.execute(taskAction)
         finish()
     }
   }

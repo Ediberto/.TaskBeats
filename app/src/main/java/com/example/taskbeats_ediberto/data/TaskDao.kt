@@ -1,5 +1,4 @@
 package com.example.taskbeats_ediberto.data
-
 import androidx.lifecycle.LiveData
 import androidx.room.*
 @Dao
@@ -15,11 +14,9 @@ interface TaskDao {
     //FUNÇÃO UPDATE
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun update(task: Task)
-
     //FUNÇÃO DELETE TODAS AS TAREFAS
     @Query("DELETE from task")
     fun deleteAll()
-
     //FUNÇÃO DELETE POR ID VAI DELETAR TODAS AS TEREFAS
     @Query("DELETE from task WHERE id =:id")
     fun deleteById(id: Int)
