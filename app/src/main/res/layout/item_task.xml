@@ -11,12 +11,14 @@
         android:id="@+id/tv_task_titlo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="left"
         style="@style/Titlo3"
         tools:text="Titlo2"/>
     <TextView
         android:id="@+id/tv_task_descricao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="left"
         style="@style/Body1"
         android:layout_marginBottom="8dp" />
 </LinearLayout>
