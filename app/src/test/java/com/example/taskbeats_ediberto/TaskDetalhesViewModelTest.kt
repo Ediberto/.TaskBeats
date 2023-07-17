@@ -8,16 +8,23 @@ import com.example.taskbeats_ediberto.presentation.TaskDetalhesViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
+import org.junit.Rule
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 @OptIn(ExperimentalCoroutinesApi::class)
 class TaskDetalhesViewModelTest {
+
+    //CRIAR UMA NOVA INSTANCIA DA "MainDispatcherRule.kt"
+    @get:Rule //EXECUTADOR DE TESTE
+    //CRIAR UMA NOVA INSTANCIA DA "MainDispatcherRule.kt"
+
+    val mainDispatcherRule = MainDispatcherRule()
     private val taskDao: TaskDao = mock()
+
     private val underTest: TaskDetalhesViewModel by lazy {
         TaskDetalhesViewModel(
-            taskDao,
-            UnconfinedTestDispatcher()
+            taskDao
         )
     }
     @Test
@@ -55,7 +62,6 @@ class TaskDetalhesViewModelTest {
         //When
         verify(taskDao).deleteById(task.id)
     }
-
     @Test
     fun create_task() = runTest {
         //Given

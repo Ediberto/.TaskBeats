@@ -24,17 +24,17 @@ class TaskDetalhesViewModel (
     }
     //DELETA A TAREFA POR ID
     private fun deleteById(id: Int) {
-        viewModelScope.launch(dispatcher) {
+        viewModelScope.launch {
             taskDao.deleteById(id)
         }
     }
     private fun insertIntoDataBase(task: Task) {
-        viewModelScope.launch(dispatcher) {
+        viewModelScope.launch {
             taskDao.insert(task)
         }
     }
     private fun updateIntoDataBase(task: Task) {
-        viewModelScope.launch(dispatcher) {
+        viewModelScope.launch {
             taskDao.update(task)
         }
     }
