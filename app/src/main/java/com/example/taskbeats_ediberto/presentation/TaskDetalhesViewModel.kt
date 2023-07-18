@@ -5,15 +5,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.taskbeats_ediberto.TaskBeatsApplication
-import com.example.taskbeats_ediberto.data.Task
-import com.example.taskbeats_ediberto.data.TaskDao
+import com.example.taskbeats_ediberto.data.local.Task
+import com.example.taskbeats_ediberto.data.local.TaskDao
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class TaskDetalhesViewModel (
-       private val taskDao: TaskDao,
-       private val dispatcher: CoroutineDispatcher=Dispatchers.IO
+    private val taskDao: TaskDao,
+    private val dispatcher: CoroutineDispatcher=Dispatchers.IO
      ): ViewModel() {
     fun execute(taskAction: TaskAction) {
         when (taskAction.actionType) {

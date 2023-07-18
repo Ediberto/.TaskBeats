@@ -1,5 +1,5 @@
 package com.example.taskbeats_ediberto
-import com.example.taskbeats_ediberto.data.TaskDao
+import com.example.taskbeats_ediberto.data.local.TaskDao
 import com.example.taskbeats_ediberto.presentation.TaskListViewModel
 import org.mockito.kotlin.mock
 

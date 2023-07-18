@@ -1,7 +1,7 @@
 package com.example.taskbeats_ediberto
 import android.app.Application
 import androidx.room.Room
-import com.example.taskbeats_ediberto.data.AppDatabase
+import com.example.taskbeats_ediberto.data.local.AppDatabase
 
 class TaskBeatsApplication: Application() {
 

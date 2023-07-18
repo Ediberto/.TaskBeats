@@ -9,7 +9,8 @@ import android.widget.LinearLayout
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.example.taskbeats_ediberto.R
-import com.example.taskbeats_ediberto.data.Task
+import com.example.taskbeats_ediberto.data.local.Task
+import com.example.taskbeats_ediberto.data.remote.RetrofitModule
 
 /**
  * A simple [Fragment] subclass.
@@ -19,6 +20,9 @@ import com.example.taskbeats_ediberto.data.Task
 class TaskListFragment : Fragment() {
     //RECUPERAR A IMAGEM "img_empty_task"
     private lateinit var ctnContent : LinearLayout
+    //CHAMAR O SERVIÇO - RetrofitModule
+    //NÃO É UMA INSTANCIA PORQUE ESTAMOS USANDO UM OBJETO
+    private val retrofitModule = RetrofitModule
     //ADAPTER
     private val adapter: TaskListAdapter by lazy {
         TaskListAdapter(::openTaskListDetalhes)
@@ -51,7 +55,7 @@ class TaskListFragment : Fragment() {
     //ATUALIZAR A LISTA, ATRAVÉS DO SUBMITLIST
     private fun listFromDataBase(){
         //Observer
-        val listObserver = Observer<List<Task>> {listTasks ->
+        val listObserver = Observer<List<Task>> { listTasks ->
             if(listTasks.isEmpty()) {
                 ctnContent.visibility = View.VISIBLE
             } else {

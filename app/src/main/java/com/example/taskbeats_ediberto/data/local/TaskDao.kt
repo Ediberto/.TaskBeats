@@ -1,4 +1,4 @@
-package com.example.taskbeats_ediberto.data
+package com.example.taskbeats_ediberto.data.local
 import androidx.lifecycle.LiveData
 import androidx.room.*
 @Dao

@@ -1,12 +1,11 @@
 package com.example.taskbeats_ediberto
 
-import com.example.taskbeats_ediberto.data.Task
-import com.example.taskbeats_ediberto.data.TaskDao
+import com.example.taskbeats_ediberto.data.local.Task
+import com.example.taskbeats_ediberto.data.local.TaskDao
 import com.example.taskbeats_ediberto.presentation.ActionType
 import com.example.taskbeats_ediberto.presentation.TaskAction
 import com.example.taskbeats_ediberto.presentation.TaskDetalhesViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test

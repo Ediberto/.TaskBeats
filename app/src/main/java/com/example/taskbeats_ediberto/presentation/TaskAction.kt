@@ -1,6 +1,6 @@
 package com.example.taskbeats_ediberto.presentation
 
-import com.example.taskbeats_ediberto.data.Task
+import com.example.taskbeats_ediberto.data.local.Task
 import java.io.Serializable
 
 // CRUD

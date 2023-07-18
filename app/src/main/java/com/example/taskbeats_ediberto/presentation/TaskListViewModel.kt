@@ -2,13 +2,9 @@ package com.example.taskbeats_ediberto.presentation
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.taskbeats_ediberto.TaskBeatsApplication
-import com.example.taskbeats_ediberto.data.Task
-import com.example.taskbeats_ediberto.data.TaskDao
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.example.taskbeats_ediberto.data.local.Task
+import com.example.taskbeats_ediberto.data.local.TaskDao
 
 class TaskListViewModel(taskDao: TaskDao): ViewModel() {
 

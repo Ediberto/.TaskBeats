@@ -12,7 +12,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.viewModels
 import com.example.taskbeats_ediberto.R
-import com.example.taskbeats_ediberto.data.Task
+import com.example.taskbeats_ediberto.data.local.Task
 import com.google.android.material.snackbar.Snackbar
 class TaskDetalhesActivity : AppCompatActivity() {
     //COLOCAR A TAREFA DENTRO DO ESCOPO DESTA ACTIVITY

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.taskbeats_ediberto.R
-import com.example.taskbeats_ediberto.data.Task
+import com.example.taskbeats_ediberto.data.local.Task
 //IMPLEMENTAR O ADAPTER NA CLASSE &quot;TaskListAdapter&quot;
 // -&gt; Unit, no Kotlin significa que não terá retorno
 class TaskListAdapter(
