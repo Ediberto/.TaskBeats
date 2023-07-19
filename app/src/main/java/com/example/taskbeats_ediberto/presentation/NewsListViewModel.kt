@@ -7,9 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.taskbeats_ediberto.data.remote.NewsDto
 import com.example.taskbeats_ediberto.data.remote.NewsService
 import com.example.taskbeats_ediberto.data.remote.RetrofitModule
-import com.google.android.filament.Filament.init
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
 //AGORA VAMOS CONSUMIR UM SERVIÇO DO BACKEND EM UM VIEWMODEL
 //VAMOS ESTENDER ESSA CLASSE À VIEWMODEL
@@ -28,10 +26,11 @@ class NewsListViewModel(
     private fun getNewsList() {
         viewModelScope.launch{
             try {
-                //CHAMAR A FUNÇÃO SUSPENSE
-                val response = newsService.fetchNews()
+                //CHAMAR AS FUNÇÕES SUSPENSAS
+                val topNews = newsService.fetchTopNews().data
+                val allNews = newsService.fetchAllNews().data
                 //ATUALIZA O MUTABLE LIVEDATA
-                _newsListLiveData.value = response.data
+                _newsListLiveData.value = topNews + allNews
             } catch (ex: java.lang.Exception) {
                 ex.printStackTrace()
             }
