@@ -48,7 +48,6 @@ class NewsListViewHolder(
 
     private val tvTitlo = view.findViewById<TextView>(R.id.tv_news_titlo)
     private val imgNews = view.findViewById<ImageView>(R.id.iv_news)
-
     fun bind(
         news: News
     ) {

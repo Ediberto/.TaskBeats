@@ -62,22 +62,3 @@ class TaskListViewHolder(private val view: View) :
         }
     }
 }
-/*
-    //CRIAR OUTRA FUNÇÃO
-    fun submit(list: List<Task>) {
-        listTask = list
-        notifyDataSetChanged()
-    }
-
-    //TAMANHO DA MINHA LISTA
-    override fun getItemCount(): Int {
-        return listTask.size
-    }
-
-
-
-
-    }
-
-}
-*/
