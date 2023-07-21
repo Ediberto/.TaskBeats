@@ -2,14 +2,14 @@
 Lista de Tarefas e de Notícias - TaskBeats, foi um aplicativo que desenvolvi do zero para dar continuidade aos meus estudos com desenvolvimento ANDROID,
 utilizando a linguagem de programação KOTLIN. Eu participei do desafio "DO ZERO AO DEV" na Comunidade "DevSpace", e conseguí concluir este projeto.
 
-<img src="/result/imagem1.jpg" width="260">&emsp;
-<img src="/result/imagem2.jpg" width="260">&emsp;
-<img src="/result/imagem3.jpg" width="260">&emsp;
-<img src="/result/imagem4.jpg" width="260">&emsp;
-<img src="/result/imagem5.jpg" width="260">&emsp;
-<img src="/result/imagem6.jpg" width="260">&emsp;
-<img src="/result/imagem7.jpg" width="260">&emsp;
-<img src="/result/imagem8.jpg" width="260">&emsp;
+<img src="/result/imagem1.jpeg" width="260">&emsp;
+<img src="/result/imagem2.jpeg" width="260">&emsp;
+<img src="/result/imagem3.jpeg" width="260">&emsp;
+<img src="/result/imagem4.jpeg" width="260">&emsp;
+<img src="/result/imagem5.jpeg" width="260">&emsp;
+<img src="/result/imagem6.jpeg" width="260">&emsp;
+<img src="/result/imagem7.jpeg" width="260">&emsp;
+<img src="/result/imagem8.jpeg" width="260">&emsp;
 
 Tecnologias utilizadas:
 *Kotlin
