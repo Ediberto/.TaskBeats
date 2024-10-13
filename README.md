@@ -39,5 +39,5 @@ Tecnologias utilizadas:
 ##TODO
 
 ##Autor
-     Ediberto Mariano da Silva (follow me on [Linkedln] (linkedin.com/in/ediberto-mariano-da-silva-238071118))
+     Ediberto Mariano da Silva (follow me on [Linkedin] (https://www.linkedin.com/in/ediberto-mariano-da-silva-238071118/))
 
