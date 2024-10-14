@@ -1,4 +1,4 @@
-# .TaskBeats
+# TaskBeats
 Lista de Tarefas e de Notícias - TaskBeats, foi um aplicativo que desenvolvi do zero para dar continuidade aos meus estudos com desenvolvimento ANDROID,
 utilizando a linguagem de programação KOTLIN. Eu participei do desafio "DO ZERO AO DEV" na Comunidade "DevSpace", e conseguí concluir este projeto.
 
@@ -35,8 +35,6 @@ Tecnologias utilizadas:
 - Classe NewsResponse para serialização de dados do Backend
 - NewsService -Serviço para receber a serialização dos dados vindo do Backend, para serem exibidos em uma ViewModel
 - RetrofitModule para criação de um novo serviço (NewsService)
-
-##TODO
 
 ##Autor
      Ediberto Mariano da Silva (follow me on [Linkedin] (https://www.linkedin.com/in/ediberto-mariano-da-silva-238071118/))
